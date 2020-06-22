@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/','front\HomeController@index')->name('home');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('deneme','back\HomeController@index')->name('deneme');
+Route::get('/admin','back\HomeController@index')->name('admin');
+Route::get('/cronjob','back\HomeController@cronjob')->name('cronjob');

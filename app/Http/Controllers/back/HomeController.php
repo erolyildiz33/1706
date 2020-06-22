@@ -2,17 +2,27 @@
 
 namespace App\Http\Controllers\back;
 
-use App\dosyalar;
+
 use App\Http\Controllers\Controller;
-use App\kameralar;
+use App\dosyalar;
 use App\sahalar;
-use Illuminate\Http\Request;
+use \DirectoryIterator;
 use Carbon\Carbon;
 
 
 class HomeController extends Controller
 {
    public function index()
+   {
+      return "admin Page";
+   }
+   public  function getDiff($strStart){
+       $dteStart = Carbon ::parse(date('Y-m-d H:i:s',$strStart));
+       $today = Carbon ::now();
+       $dteDiff  = $today->diffInMinutes($dteStart,false);
+       return  gmdate('H',$dteDiff);
+   }
+   public function cronjob()
    {
        set_time_limit(0);
        foreach (new \DirectoryIterator(INPUT_VIDEO_FOLDER) as $fileInfo) {
@@ -33,11 +43,5 @@ class HomeController extends Controller
            }
        }
        return view('deneme');
-   }
-   public  function getDiff($strStart){
-       $dteStart = Carbon ::parse(date('Y-m-d H:i:s',$strStart));
-       $today = Carbon ::now();
-       $dteDiff  = $today->diffInMinutes($dteStart,false);
-       return  gmdate('H',$dteDiff);
    }
 }
