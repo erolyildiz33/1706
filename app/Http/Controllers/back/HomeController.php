@@ -6,7 +6,7 @@ namespace App\Http\Controllers\back;
 use App\Http\Controllers\Controller;
 use App\dosyalar;
 use App\sahalar;
-use \DirectoryIterator;
+
 use Carbon\Carbon;
 
 
