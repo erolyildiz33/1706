@@ -16,3 +16,4 @@ Route::get('/','front\HomeController@index')->name('home');
 
 Route::get('/admin','back\HomeController@index')->name('admin');
 Route::get('/cronjob','back\HomeController@cronjob')->name('cronjob');
+Route::post('/ajax','front.HomeController@ilcegetir');
