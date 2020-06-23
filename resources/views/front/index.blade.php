@@ -5,34 +5,61 @@
     var me = this;
     me.il = $('#il');
     me.ilce = $('#ilce');
+    me.saha = $('#saha');
 
     me.ReadySystem = function () {
-        me.ilce.select2();
+        me.saha.select2({
+            language:'tr',
+            placeholder: "Saha Seçiniz",
+        });
+        me.ilce.select2({
+            language:'tr',
+            placeholder: "İl Seçiniz",
+        }).on('select2:select', function (e) {
+            me.ajaxme('/ajax/sahagetir',$(this).val());
+        });;
         me.il.select2({
             language:'tr',
             placeholder: "İl Seçiniz",
         }).on('select2:select', function (e) {
-            me.ajaxme($(this).val());
+            me.ajaxme('/ajax/ilcegetir',$(this).val());
         });
     };
-        me.ajaxme=function(id){
-            var resul;
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        me.ajaxme=function(url,id){
+            var result;
+
             $.ajax({
-                type: "POST",
+                type: "get",
                 async:false,
-                url: '{{url('/ajax')}}',
+                url: url+"/"+id.toLowerCase(),
                 dataType : "json",
-                data: {_token: '{{ csrf_token() }}',
-                        id:id},
+                data: { _token: '{{csrf_token()}}'},
             success: function(data){
+
                 if (data){
                     result=data;
-                    console.log(result);
+                    if(url=='/ajax/ilcegetir'){
+
+                        me.ilce. find('option')
+                            .remove()
+                            .end().append(new Option('', ''));
+                        me.saha.find('option')
+                            .remove()
+                            .end().append(new Option('', ''));
+                        $.each( data,function(index, element) {
+                            me.ilce.append(new Option(element.toUpperCase(), element.toUpperCase()));
+                        });
+                    }
+                   else if(url=='/ajax/sahagetir'){
+
+                        me.saha.find('option')
+                            .remove()
+                            .end().append(new Option('', ''));
+                        $.each( data,function(index, element) {
+                            me.saha.append(new Option(element.toUpperCase(), element.toUpperCase()));
+                        });
+                    }
+
                 }
             }
         });
@@ -49,7 +76,7 @@
     });
     </script>
     @endsection
-<meta name="csrf_token" content="{{ csrf_token() }}" />
+
 @section('content')
 
 
@@ -156,9 +183,7 @@
                             <label for="saha">Saha Seçiniz</label>
                             <div>
                                 <select id="saha" name="saha" class="custom-select">
-                                    <option value="rabbit">Rabbit</option>
-                                    <option value="duck">Duck</option>
-                                    <option value="fish">Fish</option>
+
                                 </select>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\front\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/','front\HomeController@index')->name('home');
-
+Route::get('/ilcegetir','front\HomeController@ilcegetir');
+Route::get('/sahagetir','front\HomeController@sahagetir');
 Route::get('/admin','back\HomeController@index')->name('admin');
 Route::get('/cronjob','back\HomeController@cronjob')->name('cronjob');
-Route::post('/ajax','front.HomeController@ilcegetir');
+Route::get('/ajax/{contr}/{id}', function ($controller,$id){
+   // Route::get('/sonuc/{id}', 'front\HomeController@'.$controller,['_token'=>csrf_token(),'id'=> $id]);
+
+    return redirect()->action('front\HomeController@'.$controller,['_token'=>csrf_token(),'id'=> $id]);
+
+});
+
+
+
+
+
