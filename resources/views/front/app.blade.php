@@ -27,6 +27,7 @@
     <!-- Template Main CSS File -->
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/select2.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('assets/css/jquery.datetimepicker.css')}}">
     @yield('css')
     <!-- =======================================================
     * Template Name: Arsha - v2.1.0
@@ -164,6 +165,7 @@
 <script src="{{asset('assets/js/main.js')}}"></script>
 <script src="{{asset('assets/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/select2_tr.js')}}"></script>
+<script src="{{asset('assets/js/jquery.datetimepicker.full.min.js')}}"></script>
 @yield('js')
 
 </body>

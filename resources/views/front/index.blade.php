@@ -1,81 +1,185 @@
 @extends('front.app')
 @section('js')
     <script>
-    function MyClass() {
-    var me = this;
-    me.il = $('#il');
-    me.ilce = $('#ilce');
-    me.saha = $('#saha');
+        function MyClass() {
+            var me = this;
+            me.il = $('#il');
+            me.ilce = $('#ilce');
+            me.saha = $('#saha');
+            me.kamera = $('#kamera');
+            me.mydatepicker=$('#datepicker');
+            me.get_date;
+            me.get_time;
 
-    me.ReadySystem = function () {
-        me.saha.select2({
-            language:'tr',
-            placeholder: "Saha Seçiniz",
-        });
-        me.ilce.select2({
-            language:'tr',
-            placeholder: "İl Seçiniz",
-        }).on('select2:select', function (e) {
-            me.ajaxme('/ajax/sahagetir',$(this).val());
-        });;
-        me.il.select2({
-            language:'tr',
-            placeholder: "İl Seçiniz",
-        }).on('select2:select', function (e) {
-            me.ajaxme('/ajax/ilcegetir',$(this).val());
-        });
-    };
-        me.ajaxme=function(url,id){
-            var result;
+            me.ReadySystem = function () {
 
-            $.ajax({
-                type: "get",
-                async:false,
-                url: url+"/"+id.toLowerCase(),
-                dataType : "json",
-                data: { _token: '{{csrf_token()}}'},
-            success: function(data){
+                me.mydatepicker.datetimepicker({
 
-                if (data){
-                    result=data;
-                    if(url=='/ajax/ilcegetir'){
+                        onGenerate:function( ct ){
+                            jQuery(this).find('.xdsoft_date')
+                                .toggleClass('xdsoft_disabled');
+                            jQuery(this).find('.xdsoft_time')
+                                .toggleClass('xdsoft_disabled');
+                        },
 
-                        me.ilce. find('option')
-                            .remove()
-                            .end().append(new Option('', ''));
-                        me.saha.find('option')
-                            .remove()
-                            .end().append(new Option('', ''));
-                        $.each( data,function(index, element) {
-                            me.ilce.append(new Option(element.toUpperCase(), element.toUpperCase()));
-                        });
+
+                    format:'d-m-Y H:i',
+                    formatTime:'H:i',
+                     formatDate:'d-m-Y',
+                    step: 60,
+
+                });
+                me.kamera.select2({
+                    language:'tr',
+                    placeholder: "Kamera Seçiniz",
+                }).on('select2:select', function (e) {
+                    me.ajaxme('/ajaxme',{'cont':'macgetir','id':$(this).val(),'il':me.il.val(),'ilce':me.ilce.val(),'saha':me.saha.val()});
+                });
+                me.saha.select2({
+                    language:'tr',
+                    placeholder: "Saha Seçiniz",
+                }).on('select2:select', function (e) {
+                    me.ajaxme('/ajaxme',{'cont':'kameragetir','id':$(this).val(),'il':me.il.val(),'ilce':me.ilce.val()});
+                });
+                me.ilce.select2({
+                    language:'tr',
+                    placeholder: "İlçe Seçiniz",
+                }).on('select2:select', function (e) {
+                    me.ajaxme('/ajaxme',{'cont':'sahagetir','id':$(this).val(),'il':me.il.val()});
+                });
+                me.il.select2({
+                    language:'tr',
+                    placeholder: "İl Seçiniz",
+                }).on('select2:select', function (e) {
+                    me.ajaxme('/ajaxme',{'cont':'ilcegetir','id':$(this).val()});
+                });
+            };
+            me.allows=function(data){
+                var mydates=[];
+                $.each( data,function(index, element) {
+                    mydates.push(element.date);
+                });
+                return $.unique(mydates.sort());
+            };
+            me.ajaxme=function(url,datalar){
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    dataType : "json",
+                    data: { _token: '{{csrf_token()}}',veri:datalar},
+                    success: function(data){
+
+                        if (data){
+
+                            if(datalar.cont=='ilcegetir'){
+                                me.ilce. find('option')
+                                    .remove()
+                                    .end().append(new Option('', ''));
+                                me.saha.find('option')
+                                    .remove()
+                                    .end().append(new Option('', ''));
+                                me.kamera.find('option')
+                                    .remove()
+                                    .end().append(new Option('', ''));
+                                $.each( data,function(index, element) {
+                                    me.ilce.append(new Option(element, element));
+                                });
+                                me.mydatepicker.datetimepicker({
+                                    onGenerate:function( ct ){
+                                        jQuery(this).find('.xdsoft_date')
+                                            .addClass('xdsoft_disabled');
+                                        jQuery(this).find('.xdsoft_time')
+                                            .addClass('xdsoft_disabled');
+                                    },
+
+                                })
+                            }
+                             if(datalar.cont=='sahagetir'){
+
+                                me.saha.find('option')
+                                    .remove()
+                                    .end().append(new Option('', ''));
+                                 me.kamera.find('option')
+                                     .remove()
+                                     .end().append(new Option('', ''));
+                                $.each( data,function(index, element) {
+                                    me.saha.append(new Option(element, element));
+                                });
+                                 me.mydatepicker.datetimepicker({
+                                     onGenerate:function( ct ){
+                                         jQuery(this).find('.xdsoft_date')
+                                             .addClass('xdsoft_disabled');
+                                         jQuery(this).find('.xdsoft_time')
+                                             .addClass('xdsoft_disabled');
+                                     },
+
+                                 })
+                            }
+                            if(datalar.cont=='kameragetir'){
+
+
+                                me.kamera.find('option')
+                                    .remove()
+                                    .end().append(new Option('', ''));
+                                $.each( data,function(index, element) {
+                                    me.kamera.append(new Option(element.kamerano, element.kamerano));
+                                });
+                                me.mydatepicker.datetimepicker({
+                                    onGenerate:function( ct ){
+                                        jQuery(this).find('.xdsoft_date')
+                                            .addClass('xdsoft_disabled');
+                                        jQuery(this).find('.xdsoft_time')
+                                            .addClass('xdsoft_disabled');
+                                    },
+
+                                })
+                             }
+                            if(datalar.cont=='macgetir'){
+
+                                if(data[0]=='disable'){
+                                    me.mydatepicker.datetimepicker({
+                                        onGenerate:function( ct ){
+                                            jQuery(this).find('.xdsoft_date')
+                                                .addClass('xdsoft_disabled');
+                                            jQuery(this).find('.xdsoft_time')
+                                                .addClass('xdsoft_disabled');
+                                        },
+
+                                    })
+                                }
+                                else {
+                                    //console.log(me.allows(data));
+                                    me.mydatepicker.datetimepicker({
+
+                                        onGenerate:function( ct ){
+                                            jQuery(this).find('.xdsoft_date')
+                                                .removeClass('xdsoft_disabled');
+
+                                        },
+                                        formatDate:'d-m-Y',
+                                        allowDates:me.allows(data),
+
+                                    })
+                                    /////////////////////    maçları bul getir  /////////////////////
+
+
+                                }
+                            }
+                        }
                     }
-                   else if(url=='/ajax/sahagetir'){
+                });
+            };
+        }
 
-                        me.saha.find('option')
-                            .remove()
-                            .end().append(new Option('', ''));
-                        $.each( data,function(index, element) {
-                            me.saha.append(new Option(element.toUpperCase(), element.toUpperCase()));
-                        });
-                    }
 
-                }
-            }
+        var My_do = null;
+
+        $(function () {
+            Mydo = new MyClass();
+            Mydo.ReadySystem();
         });
-            return result;
-        };
-    }
-
-
-    var My_do = null;
-
-    $(function () {
-    Mydo = new MyClass();
-    Mydo.ReadySystem();
-    });
     </script>
-    @endsection
+@endsection
 
 @section('content')
 
@@ -192,12 +296,24 @@
                     <div class="col-3">
 
                         <div class="form-group">
-                            <label for="tarih">Maç Saati Seçiniz</label>
+                            <label for="saha">Kamera Seçiniz</label>
                             <div>
-                               <datetime></datetime>
+                                <select id="kamera" name="kamera" class="custom-select">
+
+                                </select>
                             </div>
                         </div>
 
+                    </div>
+
+                </div>
+                <div class="col-3">
+
+                    <div class="form-group">
+                        <label for="tarih">Maç Saati Seçiniz</label>
+                        <div>
+                            <input type="text" id="datepicker"  class="custom-select"  required type="text" placeholder="Tarih Seçiniz">
+                        </div>
                     </div>
 
                 </div>
@@ -804,5 +920,5 @@
         </section><!-- End Contact Section -->
 
     </main><!-- End #main -->
-    @endsection
+@endsection
 
