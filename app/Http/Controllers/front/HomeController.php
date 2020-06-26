@@ -19,8 +19,14 @@ class HomeController extends Controller
     }
     function ajaxme(Request $request){
 
+        if ($request->veri['cont']=='convert')
+        {
 
-        if ($request->veri['cont']=='ilcegetir')
+
+            return [implode("-",explode(".",$request->veri['data']))];
+        }
+
+        elseif ($request->veri['cont']=='ilcegetir')
        {
            return (sahalar::where('il',$request->veri['id'])->orderBy('ilce', 'asc')->distinct('ilce')->pluck('ilce'));
        }
@@ -37,7 +43,7 @@ class HomeController extends Controller
 
         {
             $sahaId=sahalar::where('il',$request->veri['il'])->where('ilce',$request->veri['ilce'])->where('sahaadi',$request->veri['saha'])->get('id');
-            $maclar=dosyalar::where('sahaid',$sahaId[0]->id)->orderBy('created_at', 'asc')->get('dosyaadi');
+            $maclar=dosyalar::where('sahaid',$sahaId[0]->id)->where('kamerano',$request->veri['id'])->orderBy('created_at', 'asc')->get('dosyaadi');
             if(!$maclar){
                 return ["disable"];
             }
@@ -46,6 +52,7 @@ class HomeController extends Controller
                 $enabledDates=array();
                 foreach ($maclar as $k => $v)
                     {
+
                         $tarih=explode(".",explode("_",$v['dosyaadi'])[2])[0];
                         array_push($enabledDates,['date'=>Carbon::createFromFormat('dmYHis', $tarih)->format('d-m-Y'),'time'=>Carbon::createFromFormat('dmYHis', $tarih)->format('H:i')]);
 

@@ -16,13 +16,17 @@
                 me.mydatepicker.datetimepicker({
 
                         onGenerate:function( ct ){
-                            jQuery(this).find('.xdsoft_date')
-                                .toggleClass('xdsoft_disabled');
-                            jQuery(this).find('.xdsoft_time')
-                                .toggleClass('xdsoft_disabled');
+                            clsDate=jQuery(this).find('.xdsoft_date');
+                            if(!clsDate.hasClass('xdsoft_disabled')){
+                                clsDate.addClass('xdsoft_disabled');
+                            }
+                            clsTime= jQuery(this).find('.xdsoft_time');
+                            if(!clsTime.hasClass('xdsoft_disabled')){
+                                clsTime.addClass('xdsoft_disabled');
+                            }
                         },
 
-
+                    onChangeDateTime:me.getTimes,
                     format:'d-m-Y H:i',
                     formatTime:'H:i',
                      formatDate:'d-m-Y',
@@ -54,23 +58,37 @@
                     me.ajaxme('/ajaxme',{'cont':'ilcegetir','id':$(this).val()});
                 });
             };
-            me.allows=function(data){
+            me.myallowsDate=function(data){
                 var mydates=[];
                 $.each( data,function(index, element) {
                     mydates.push(element.date);
                 });
                 return $.unique(mydates.sort());
             };
+            me.myallowsTime=function(data,item){
+                var myTimes=[];
+                $.each( data,function(index, element) {
+                    console.log(item);
+                    if(element.date==item){
+                        //console.log()
+                        myTimes.push(element.time);
+                    }
+
+                });
+                return $.unique(myTimes.sort());
+            };
             me.ajaxme=function(url,datalar){
+                var result;
                 $.ajax({
                     type: "post",
                     url: url,
+                    async:false,
                     dataType : "json",
                     data: { _token: '{{csrf_token()}}',veri:datalar},
                     success: function(data){
 
                         if (data){
-
+                            result=data;
                             if(datalar.cont=='ilcegetir'){
                                 me.ilce. find('option')
                                     .remove()
@@ -86,10 +104,15 @@
                                 });
                                 me.mydatepicker.datetimepicker({
                                     onGenerate:function( ct ){
-                                        jQuery(this).find('.xdsoft_date')
-                                            .addClass('xdsoft_disabled');
-                                        jQuery(this).find('.xdsoft_time')
-                                            .addClass('xdsoft_disabled');
+
+                                        clsDate=jQuery(this).find('.xdsoft_date');
+                                        if(!clsDate.hasClass('xdsoft_disabled')){
+                                            clsDate.addClass('xdsoft_disabled');
+                                        }
+                                        clsTime= jQuery(this).find('.xdsoft_time');
+                                        if(!clsTime.hasClass('xdsoft_disabled')){
+                                            clsTime.addClass('xdsoft_disabled');
+                                        }
                                     },
 
                                 })
@@ -107,10 +130,14 @@
                                 });
                                  me.mydatepicker.datetimepicker({
                                      onGenerate:function( ct ){
-                                         jQuery(this).find('.xdsoft_date')
-                                             .addClass('xdsoft_disabled');
-                                         jQuery(this).find('.xdsoft_time')
-                                             .addClass('xdsoft_disabled');
+                                         clsDate=jQuery(this).find('.xdsoft_date');
+                                         if(!clsDate.hasClass('xdsoft_disabled')){
+                                             clsDate.addClass('xdsoft_disabled');
+                                         }
+                                         clsTime= jQuery(this).find('.xdsoft_time');
+                                         if(!clsTime.hasClass('xdsoft_disabled')){
+                                             clsTime.addClass('xdsoft_disabled');
+                                         }
                                      },
 
                                  })
@@ -126,10 +153,14 @@
                                 });
                                 me.mydatepicker.datetimepicker({
                                     onGenerate:function( ct ){
-                                        jQuery(this).find('.xdsoft_date')
-                                            .addClass('xdsoft_disabled');
-                                        jQuery(this).find('.xdsoft_time')
-                                            .addClass('xdsoft_disabled');
+                                        clsDate=jQuery(this).find('.xdsoft_date');
+                                        if(!clsDate.hasClass('xdsoft_disabled')){
+                                            clsDate.addClass('xdsoft_disabled');
+                                        }
+                                        clsTime= jQuery(this).find('.xdsoft_time');
+                                        if(!clsTime.hasClass('xdsoft_disabled')){
+                                            clsTime.addClass('xdsoft_disabled');
+                                        }
                                     },
 
                                 })
@@ -139,33 +170,52 @@
                                 if(data[0]=='disable'){
                                     me.mydatepicker.datetimepicker({
                                         onGenerate:function( ct ){
-                                            jQuery(this).find('.xdsoft_date')
-                                                .addClass('xdsoft_disabled');
-                                            jQuery(this).find('.xdsoft_time')
-                                                .addClass('xdsoft_disabled');
+                                            clsDate=jQuery(this).find('.xdsoft_date');
+                                            if(!clsDate.hasClass('xdsoft_disabled')){
+                                                clsDate.addClass('xdsoft_disabled');
+                                            }
+                                            clsTime= jQuery(this).find('.xdsoft_time');
+                                            if(!clsTime.hasClass('xdsoft_disabled')){
+                                                clsTime.addClass('xdsoft_disabled');
+                                            }
                                         },
 
                                     })
                                 }
                                 else {
-                                    //console.log(me.allows(data));
+                                    /////////////////////    maçları bul getir  /////////////////////
                                     me.mydatepicker.datetimepicker({
 
                                         onGenerate:function( ct ){
-                                            jQuery(this).find('.xdsoft_date')
-                                                .removeClass('xdsoft_disabled');
-
-                                        },
+                                            clsDate=jQuery(this).find('.xdsoft_date');
+                                            if(!clsDate.hasClass('xdsoft_disabled')){
+                                                clsDate.toggleClass('xdsoft_disabled');
+                                            }
+                                            clsTime= jQuery(this).find('.xdsoft_time');
+                                            if(!clsTime.hasClass('xdsoft_disabled')){
+                                                clsTime.addClass('xdsoft_disabled');
+                                            }
+                                            },
                                         formatDate:'d-m-Y',
-                                        allowDates:me.allows(data),
+                                        allowDates:me.myallowsDate(data),
+                                        onSelectDate: function(dateText, inst) {
+                                            console.log(me.ajaxme('/ajaxme',{'cont':'convert','data':new Date(dateText).toLocaleDateString()}));
+                                            this.setOptions({
+                                                allowTimes:me.myallowsTime(data,me.ajaxme('/ajaxme',{'cont':'convert','data':new Date(dateText).toLocaleDateString()})),
+                                            });
+
+
+
+                                        }
 
                                     })
-                                    /////////////////////    maçları bul getir  /////////////////////
+
 
 
                                 }
                             }
                         }
+                        return result;
                     }
                 });
             };
