@@ -21,8 +21,6 @@ class HomeController extends Controller
 
         if ($request->veri['cont']=='convert')
         {
-
-
             return [implode("-",explode(".",$request->veri['data']))];
         }
 

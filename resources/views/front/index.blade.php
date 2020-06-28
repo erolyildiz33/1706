@@ -65,12 +65,15 @@
                 });
                 return $.unique(mydates.sort());
             };
-            me.myallowsTime=function(data,item){
+            me.myallowsTime=function(item,data){
+                item.split(".").join("-");
+                item=item.split(".").join("-");
+
                 var myTimes=[];
                 $.each( data,function(index, element) {
-                    console.log(item);
+
                     if(element.date==item){
-                        //console.log()
+
                         myTimes.push(element.time);
                     }
 
@@ -188,7 +191,7 @@
 
                                         onGenerate:function( ct ){
                                             clsDate=jQuery(this).find('.xdsoft_date');
-                                            if(!clsDate.hasClass('xdsoft_disabled')){
+                                            if(clsDate.hasClass('xdsoft_disabled')){
                                                 clsDate.toggleClass('xdsoft_disabled');
                                             }
                                             clsTime= jQuery(this).find('.xdsoft_time');
@@ -199,19 +202,14 @@
                                         formatDate:'d-m-Y',
                                         allowDates:me.myallowsDate(data),
                                         onSelectDate: function(dateText, inst) {
-                                            console.log(me.ajaxme('/ajaxme',{'cont':'convert','data':new Date(dateText).toLocaleDateString()}));
-                                            this.setOptions({
-                                                allowTimes:me.myallowsTime(data,me.ajaxme('/ajaxme',{'cont':'convert','data':new Date(dateText).toLocaleDateString()})),
+                                            clsTime= jQuery(this).find('.xdsoft_time');
+                                            if(!clsDate.hasClass('xdsoft_disabled')){
+                                                clsDate.removeClass('xdsoft_disabled');
+                                            }
+                                            this.setOptions({allowTimes:me.myallowsTime(new Date(dateText).toLocaleDateString(),data),
                                             });
-
-
-
                                         }
-
                                     })
-
-
-
                                 }
                             }
                         }
