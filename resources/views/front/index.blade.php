@@ -129,16 +129,11 @@
                                 else {
                                     /////////////////////    maçları bul getir  /////////////////////
                                     me.mydatepicker.datetimepicker({
-
-                                        onGenerate:function( ct ){
-                                            clsDate=jQuery(this).find('.xdsoft_date');
-                                            if(clsDate.hasClass('xdsoft_disabled')){
-                                                clsDate.toggleClass('xdsoft_disabled');
-                                            }
-
-                                            },
-                                        formatDate:'d-m-Y',
                                         allowDates:me.myallowsDate(data),
+                                        formatDate:'d-m-Y',
+
+
+
 
                                     })
                                 }
