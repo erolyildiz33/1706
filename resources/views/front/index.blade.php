@@ -6,7 +6,7 @@
             me.il = $('#il');
             me.ilce = $('#ilce');
             me.saha = $('#saha');
-            me.kamera = $('#kamera');
+
             me.mydatepicker=$('#datepicker');
             me.get_date;
             me.get_time;
@@ -75,9 +75,7 @@
                                 me.saha.find('option')
                                     .remove()
                                     .end().append(new Option('', ''));
-                                me.kamera.find('option')
-                                    .remove()
-                                    .end().append(new Option('', ''));
+
                                 $.each( data,function(index, element) {
                                     me.ilce.append(new Option(element, element));
                                 });
@@ -98,9 +96,7 @@
                                 me.saha.find('option')
                                     .remove()
                                     .end().append(new Option('', ''));
-                                 me.kamera.find('option')
-                                     .remove()
-                                     .end().append(new Option('', ''));
+
                                 $.each( data,function(index, element) {
                                     me.saha.append(new Option(element, element));
                                 });
@@ -143,13 +139,7 @@
                                             },
                                         formatDate:'d-m-Y',
                                         allowDates:me.myallowsDate(data),
-                                        onSelectDate: function(dateText, inst) {
-                                            clsTime= jQuery(this).find('.xdsoft_time');
-                                            if(!clsDate.hasClass('xdsoft_disabled')){
-                                                clsDate.removeClass('xdsoft_disabled');
-                                            }
-                                           // this.setOptions({allowTimes:me.myallowsTime(new Date(dateText).toLocaleDateString(),data),});
-                                        }
+
                                     })
                                 }
                             }

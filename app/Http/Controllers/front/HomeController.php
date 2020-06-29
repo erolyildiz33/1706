@@ -36,8 +36,8 @@ class HomeController extends Controller
         elseif ($request->veri['cont']=='macgetir')
 
         {
-            $sahaId=sahalar::where('il',$request->veri['il'])->where('ilce',$request->veri['ilce'])->where('sahaadi',$request->veri['saha'])->get('id');
-            $maclar=dosyalar::where('sahaid',$sahaId[0]->id)->where('kamerano',$request->veri['id'])->orderBy('created_at', 'asc')->get('dosyaadi');
+            $sahaId=sahalar::where('il',$request->veri['il'])->where('ilce',$request->veri['ilce'])->where('sahaadi',$request->veri['id'])->get('id');
+            $maclar=dosyalar::where('sahaid',$sahaId[0]->id)->orderBy('created_at', 'asc')->get('dosyaadi');
             if(!$maclar){
                 return ["disable"];
             }
@@ -46,12 +46,11 @@ class HomeController extends Controller
                 $enabledDates=array();
                 foreach ($maclar as $k => $v)
                     {
-
+                        $kamerano=explode(".",explode("_",$v['dosyaadi'])[1])[0];
                         $tarih=explode(".",explode("_",$v['dosyaadi'])[2])[0];
-                        array_push($enabledDates,['date'=>Carbon::createFromFormat('dmYHis', $tarih)->format('d-m-Y'),'time'=>Carbon::createFromFormat('dmYHis', $tarih)->format('H:i')]);
+                        array_push($enabledDates,['kamerano'=>$kamerano,'date'=>Carbon::createFromFormat('dmYHis', $tarih)->format('d-m-Y'),'time'=>Carbon::createFromFormat('dmYHis', $tarih)->format('H:i')]);
 
                     }
-
                 return $enabledDates;
                 }
         }
