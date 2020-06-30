@@ -1,158 +1,6 @@
 @extends('front.app')
 @section('js')
-    <script>
-        function MyClass() {
-            var me = this;
-            me.il = $('#il');
-            me.ilce = $('#ilce');
-            me.saha = $('#saha');
 
-            me.mydatepicker=$('#datepicker');
-            me.get_date;
-            me.get_time;
-
-            me.ReadySystem = function () {
-                jQuery.datetimepicker.setLocale('tr');
-                me.mydatepicker.datetimepicker({
-                        timepicker:false,
-                        onGenerate:function( ct ){
-                            clsDate=jQuery(this).find('.xdsoft_date');
-                            if(!clsDate.hasClass('xdsoft_disabled')){
-                                clsDate.addClass('xdsoft_disabled');
-                            }
-
-                        },
-
-                    onChangeDateTime:me.getTimes,
-                    formatDate:'d-m-Y',
-
-
-                });
-
-                me.saha.select2({
-                    language:'tr',
-                    placeholder: "Saha Seçiniz",
-                }).on('select2:select', function (e) {
-                    me.ajaxme('/ajaxme',{'cont':'macgetir','id':$(this).val(),'il':me.il.val(),'ilce':me.ilce.val()});
-                });
-                me.ilce.select2({
-                    language:'tr',
-                    placeholder: "İlçe Seçiniz",
-                }).on('select2:select', function (e) {
-                    me.ajaxme('/ajaxme',{'cont':'sahagetir','id':$(this).val(),'il':me.il.val()});
-                });
-                me.il.select2({
-                    language:'tr',
-                    placeholder: "İl Seçiniz",
-                }).on('select2:select', function (e) {
-                    me.ajaxme('/ajaxme',{'cont':'ilcegetir','id':$(this).val()});
-                });
-            };
-            me.myallowsDate=function(data){
-                var mydates=[];
-                $.each( data,function(index, element) {
-                    mydates.push(element.date);
-                });
-                return $.unique(mydates.sort());
-            };
-
-            me.ajaxme=function(url,datalar){
-                var result;
-                $.ajax({
-                    type: "post",
-                    url: url,
-                    async:false,
-                    dataType : "json",
-                    data: { _token: '{{csrf_token()}}',veri:datalar},
-                    success: function(data){
-
-                        if (data){
-                            result=data;
-                            if(datalar.cont=='ilcegetir'){
-                                me.ilce. find('option')
-                                    .remove()
-                                    .end().append(new Option('', ''));
-                                me.saha.find('option')
-                                    .remove()
-                                    .end().append(new Option('', ''));
-
-                                $.each( data,function(index, element) {
-                                    me.ilce.append(new Option(element, element));
-                                });
-                                me.mydatepicker.datetimepicker({
-                                    onGenerate:function( ct ){
-
-                                        clsDate=jQuery(this).find('.xdsoft_date');
-                                        if(!clsDate.hasClass('xdsoft_disabled')){
-                                            clsDate.addClass('xdsoft_disabled');
-                                        }
-
-                                    },
-
-                                })
-                            }
-                             if(datalar.cont=='sahagetir'){
-
-                                me.saha.find('option')
-                                    .remove()
-                                    .end().append(new Option('', ''));
-
-                                $.each( data,function(index, element) {
-                                    me.saha.append(new Option(element, element));
-                                });
-                                 me.mydatepicker.datetimepicker({
-                                     onGenerate:function( ct ){
-                                         clsDate=jQuery(this).find('.xdsoft_date');
-                                         if(!clsDate.hasClass('xdsoft_disabled')){
-                                             clsDate.addClass('xdsoft_disabled');
-                                         }
-
-                                     },
-
-                                 })
-                            }
-
-                            if(datalar.cont=='macgetir'){
-
-                                if(data[0]=='disable'){
-                                    me.mydatepicker.datetimepicker({
-                                        onGenerate:function( ct ){
-                                            clsDate=jQuery(this).find('.xdsoft_date');
-                                            if(!clsDate.hasClass('xdsoft_disabled')){
-                                                clsDate.addClass('xdsoft_disabled');
-                                            }
-
-                                        },
-
-                                    })
-                                }
-                                else {
-                                    /////////////////////    maçları bul getir  /////////////////////
-                                    me.mydatepicker.datetimepicker({
-                                        allowDates:me.myallowsDate(data),
-                                        formatDate:'d-m-Y',
-
-
-
-
-                                    })
-                                }
-                            }
-                        }
-                        return result;
-                    }
-                });
-            };
-        }
-
-
-        var My_do = null;
-
-        $(function () {
-            Mydo = new MyClass();
-            Mydo.ReadySystem();
-        });
-    </script>
 @endsection
 
 @section('content')
@@ -181,43 +29,10 @@
 
     <main id="main">
 
-        <!-- ======= Cliens Section ======= -->
-        <section id="cliens" class="cliens section-bg">
-            <div class="container">
 
-                <div class="row" data-aos="zoom-in">
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
-                    </div>
-
-                </div>
-
-            </div>
-        </section><!-- End Cliens Section -->
 
         <!-- ======= End Find Match Section ======= -->
-        <section id="findmatch" class="about">
+        <section id="findmatch" class="portfolio">
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
@@ -280,9 +95,60 @@
                     </div>
 
                 </div>
+                <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+                    <li data-filter="*" class="filter-active">Tümü</li>
+                    <li data-filter=".filter-kamera1">Kamera 1</li>
+                    <li data-filter=".filter-kamera2">Kamera 2</li>
+                    <li data-filter=".filter-web">Web</li>
+                </ul>
 
+                <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" style=" height: auto!important;">
+
+
+
+
+
+
+
+
+                </div>
             </div>
         </section><!-- End Find Match Section -->
+        <!-- ======= Cliens Section ======= -->
+        <section id="cliens" class="cliens section-bg">
+            <div class="container">
+
+                <div class="row" data-aos="zoom-in">
+
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                        <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Cliens Section -->
+
         <!-- ======= About Us Section ======= -->
         <section id="about" class="about">
             <div class="container" data-aos="fade-up">
@@ -488,118 +354,7 @@
             </div>
         </section><!-- End Cta Section -->
 
-        <!-- ======= Portfolio Section ======= -->
-        <section id="portfolio" class="portfolio">
-            <div class="container" data-aos="fade-up">
 
-                <div class="section-title">
-                    <h2>Portfolio</h2>
-                    <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-                </div>
-
-                <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
-                    <li data-filter="*" class="filter-active">All</li>
-                    <li data-filter=".filter-app">App</li>
-                    <li data-filter=".filter-card">Card</li>
-                    <li data-filter=".filter-web">Web</li>
-                </ul>
-
-                <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>App 1</h4>
-                            <p>App</p>
-                            <a href="assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Web 3</h4>
-                            <p>Web</p>
-                            <a href="assets/img/portfolio/portfolio-2.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>App 2</h4>
-                            <p>App</p>
-                            <a href="assets/img/portfolio/portfolio-3.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Card 2</h4>
-                            <p>Card</p>
-                            <a href="assets/img/portfolio/portfolio-4.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Web 2</h4>
-                            <p>Web</p>
-                            <a href="assets/img/portfolio/portfolio-5.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>App 3</h4>
-                            <p>App</p>
-                            <a href="assets/img/portfolio/portfolio-6.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Card 1</h4>
-                            <p>Card</p>
-                            <a href="assets/img/portfolio/portfolio-7.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Card 3</h4>
-                            <p>Card</p>
-                            <a href="assets/img/portfolio/portfolio-8.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt=""></div>
-                        <div class="portfolio-info">
-                            <h4>Web 3</h4>
-                            <p>Web</p>
-                            <a href="assets/img/portfolio/portfolio-9.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section><!-- End Portfolio Section -->
 
         <!-- ======= Team Section ======= -->
         <section id="team" class="team section-bg">

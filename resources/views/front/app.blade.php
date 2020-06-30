@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Arsha Bootstrap Template - Index</title>
 
 
@@ -166,6 +166,7 @@
 <script src="{{asset('assets/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/select2_tr.js')}}"></script>
 <script src="{{asset('assets/js/jquery.datetimepicker.full.min.js')}}"></script>
+<script src="{{asset('assets/js/myscript.js')}}"></script>
 @yield('js')
 
 </body>

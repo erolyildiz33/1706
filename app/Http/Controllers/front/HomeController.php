@@ -48,7 +48,7 @@ class HomeController extends Controller
                     {
                         $kamerano=explode(".",explode("_",$v['dosyaadi'])[1])[0];
                         $tarih=explode(".",explode("_",$v['dosyaadi'])[2])[0];
-                        array_push($enabledDates,['kamerano'=>$kamerano,'date'=>Carbon::createFromFormat('dmYHis', $tarih)->format('d-m-Y'),'time'=>Carbon::createFromFormat('dmYHis', $tarih)->format('H:i')]);
+                        array_push($enabledDates,['saha'=>$request->veri['id'],'kamerano'=>$kamerano,'date'=>Carbon::createFromFormat('dmYHis', $tarih)->format('d-m-Y'),'time'=>Carbon::createFromFormat('dmYHis', $tarih)->format('H:i')]);
 
                     }
                 return $enabledDates;
