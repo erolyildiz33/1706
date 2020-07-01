@@ -61,8 +61,7 @@ function MyClass() {
         }
         $.each(me.tummaclar,function (index,element) {
             if(seldate==element.date){
-
-                me.mycontainer.append('<div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">\n' +
+                item=$('<div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">\n' +
                     '                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt=""></div>\n' +
                     '                        <div class="portfolio-info">\n' +
                     '                            <h4>'+element.saha+'</h4>\n' +
@@ -71,8 +70,13 @@ function MyClass() {
                     '                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>\n' +
                     '                        </div>\n' +
                     '                    </div>');
+                me.mycontainer.isotope({
+                    itemSelector: '.portfolio-item',
+
+                }).append(item.add( ))
+                    .isotope( 'appended', item);
             }
-           me.mycontainer.attr('style','height: auto!important');
+
 
         });
 

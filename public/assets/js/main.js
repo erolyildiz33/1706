@@ -167,6 +167,7 @@
       $("#portfolio-flters li").removeClass('filter-active');
       $(this).addClass('filter-active');
 
+
       portfolioIsotope.isotope({
         filter: $(this).data('filter')
       });

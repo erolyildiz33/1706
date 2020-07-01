@@ -948,6 +948,7 @@ section {
 .portfolio #portfolio-flters {
   list-style: none;
   margin-bottom: 20px;
+    height: auto!important;
 }
 
 .portfolio #portfolio-flters li {
