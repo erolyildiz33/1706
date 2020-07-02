@@ -104,11 +104,16 @@
 
                 <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" >
                     <div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">
-                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt=""></div>
+                        <div class="portfolio-img">
+                            <video id="myvideo"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
+                                <source src='1.mp4'  id='source' type='video/mp4'>
+                            </video>
+
+                        </div>
                         <div class="portfolio-info">
                             <h4>Maraton</h4>
                             <p>Kamera 1 / <span> Saat 11:00</span></p>
-                            <a href="assets/img/portfolio/portfolio-2.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="İzle"><i class="bx bx-play"></i></a>
+                            <a href="assets/public/outputvideos/1_2_22062020184522.mp4" data-gall="portfolioGallery" class="venobox preview-link" title="İzle"><i class="bx bx-play"></i></a>
                             <a href="portfolio-details.html" class="details-link" title="Düzenle"><i class="bx bx-edit"></i></a>
                         </div>
                     </div>

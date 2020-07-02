@@ -1,0 +1,61 @@
+<head>
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+
+<video id="mario-video"  width="320" poster="poster.jpg">
+ <source src='1.mp4'  id='source' type='video/mp4'>
+ </video>
+
+ <button id="video-fullscreen">View fullscreen video</button>
+ <script type="text/javascript">
+  (function () {
+
+
+    var marioVideo = document.getElementById("mario-video");
+    videoFullscreen = document.getElementById("video-fullscreen");
+    var source=document.getElementById("source");
+
+if (document.addEventListener)
+{
+ document.addEventListener('fullscreenchange', exitHandler, false);
+ document.addEventListener('mozfullscreenchange', exitHandler, false);
+ document.addEventListener('MSFullscreenChange', exitHandler, false);
+ document.addEventListener('webkitfullscreenchange', exitHandler, false);
+}
+
+function exitHandler()
+{
+ if (document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement !== null)
+ {
+   marioVideo.removeAttribute('src'); 
+  
+   marioVideo.setAttribute('poster','poster.jpg'); 
+   marioVideo.load();
+ }
+}
+if (marioVideo && videoFullscreen) {
+  videoFullscreen.addEventListener("click", function (evt) {
+    if (marioVideo.requestFullscreen) {
+      marioVideo.requestFullscreen();
+    }
+    else if (marioVideo.msRequestFullscreen) {
+      marioVideo.msRequestFullscreen();
+    }
+    else if (marioVideo.mozRequestFullScreen) {
+      marioVideo.mozRequestFullScreen();
+    }
+    else if (marioVideo.webkitRequestFullScreen) {
+      marioVideo.webkitRequestFullScreen();
+                /*
+                    *Kept here for reference: keyboard support in full screen
+                    * marioVideo.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+                    */
+                  }
+                }, false);
+}
+})();
+
+</script>

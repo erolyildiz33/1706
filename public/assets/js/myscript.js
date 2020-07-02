@@ -4,6 +4,7 @@ function MyClass() {
     me.il = $('#il');
     me.ilce = $('#ilce');
     me.saha = $('#saha');
+    me.izle=$('#izle');
     me.mycontainer = $('.portfolio-container');
 
     me.mydatepicker=$('#datepicker');
@@ -11,8 +12,13 @@ function MyClass() {
     me.get_time;
     me.tummaclar;
     me.secilenmaclar=[];
-
+    me.video= document.getElementById('video');
+    me.videoContainer = document.getElementById('video-container');
     me.ReadySystem = function () {
+        me.izle.click(function () {
+            me.videoContainer.requestFullscreen();
+            me.video.play();
+        });
         jQuery.datetimepicker.setLocale('tr');
         me.mydatepicker.datetimepicker({
             timepicker:false,
@@ -45,6 +51,7 @@ function MyClass() {
         }).on('select2:select', function (e) {
             me.ajaxme('/ajaxme',{'cont':'ilcegetir','id':$(this).val()});
         });
+
     };
     me.myallowsDate=function(data){
         var mydates=[];
@@ -62,7 +69,11 @@ function MyClass() {
         $.each(me.tummaclar,function (index,element) {
             if(seldate==element.date){
                 item=$('<div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">\n' +
-                    '                        <div class="portfolio-img"><img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt=""></div>\n' +
+                    '                        <div class="portfolio-img">' +
+                    '<video id="mario-video"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">'+
+                    '<source src="1.mp4"  id="source" type="video/mp4">'+
+                    '</video>'+
+                    '</div>\n' +
                     '                        <div class="portfolio-info">\n' +
                     '                            <h4>'+element.saha+'</h4>\n' +
                     '                            <p>Kamera '+element.kamerano+'</p>\n' +
