@@ -16,7 +16,7 @@
 
     var marioVideo = document.getElementById("mario-video");
     videoFullscreen = document.getElementById("video-fullscreen");
-    var source=document.getElementById("source");
+
 
 if (document.addEventListener)
 {
@@ -30,9 +30,8 @@ function exitHandler()
 {
  if (document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement !== null)
  {
-   marioVideo.removeAttribute('src'); 
-  
-   marioVideo.setAttribute('poster','poster.jpg'); 
+   marioVideo.removeAttribute('src');
+   marioVideo.setAttribute('poster','poster.jpg');
    marioVideo.load();
  }
 }

@@ -4,21 +4,69 @@ function MyClass() {
     me.il = $('#il');
     me.ilce = $('#ilce');
     me.saha = $('#saha');
-    me.izle=$('#izle');
+    me.izle=document.getElementById("izle");
     me.mycontainer = $('.portfolio-container');
+    me.test = $('.venobox').venobox();
 
     me.mydatepicker=$('#datepicker');
     me.get_date;
     me.get_time;
     me.tummaclar;
     me.secilenmaclar=[];
-    me.video= document.getElementById('video');
+    me.video= document.getElementById('myvideo');
+
     me.videoContainer = document.getElementById('video-container');
     me.ReadySystem = function () {
-        me.izle.click(function () {
-            me.videoContainer.requestFullscreen();
-            me.video.play();
-        });
+
+
+        if (document.addEventListener)
+        {
+            document.addEventListener('fullscreenchange', me.exitHandler, false);
+            document.addEventListener('mozfullscreenchange', me.exitHandler, false);
+            document.addEventListener('MSFullscreenChange', me.exitHandler, false);
+            document.addEventListener('webkitfullscreenchange', me.exitHandler, false);
+        }
+
+         me.exitHandler=function()
+        {
+            if (document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement !== null)
+            {
+
+                me.video.removeAttribute('src');
+                me.video.setAttribute('poster','assets/img/portfolio/portfolio-2.jpg');
+                me.video.load();
+
+            }
+        }
+        if (me.video && me.izle) {
+           me.izle.addEventListener("click", function (evt) {
+                if (me.video.requestFullscreen) {
+                    me.video.requestFullscreen();
+                     me.test.VBclose();
+                }
+                else if (me.video.msRequestFullscreen) {
+                    me.video.msRequestFullscreen();
+                     me.test.VBclose();
+                }
+                else if (me.video.mozRequestFullScreen) {
+                    me.video.mozRequestFullScreen();
+                     me.test.VBclose();
+                }
+                else if (me.video.webkitRequestFullScreen) {
+                    me.video.webkitRequestFullScreen();
+                     me.test.VBclose();
+
+                }
+            }, false);
+        }
+
+
+
+
+
+
+
+
         jQuery.datetimepicker.setLocale('tr');
         me.mydatepicker.datetimepicker({
             timepicker:false,
