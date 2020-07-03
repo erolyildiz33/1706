@@ -1,60 +1,99 @@
 <head>
-  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </head>
 
 
-<video id="mario-video"  width="320" poster="poster.jpg">
- <source src='1.mp4'  id='source' type='video/mp4'>
+<video id="mario-video"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" >
+ <source src="/outputvideos/1_2_22062020184522.mp4"  type="video/mp4">
  </video>
 
- <button id="video-fullscreen">View fullscreen video</button>
+ <button id="video-fullscreen">Tam Ekran</button>
+
  <script type="text/javascript">
-  (function () {
+
+     (function () {
 
 
-    var marioVideo = document.getElementById("mario-video");
-    videoFullscreen = document.getElementById("video-fullscreen");
+
+         var marioVideo = document.getElementById("mario-video");
+         videoFullscreen = document.getElementById("video-fullscreen");
+
+         if (document.addEventListener)
+         {
+             document.addEventListener('fullscreenchange', exitHandler, false);
+             document.addEventListener('mozfullscreenchange', exitHandler, false);
+             document.addEventListener('MSFullscreenChange', exitHandler, false);
+             document.addEventListener('webkitfullscreenchange', exitHandler, false);
+         }
+
+         function exitHandler()
+         {
+
+             if (!(document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement))
+             {
+                 marioVideo.pause();
+                 marioVideo.removeAttribute('autoplay');
+                 marioVideo.setAttribute('poster','assets/img/portfolio/portfolio-2.jpg');
+                 marioVideo.load();
+
+             }
+             else
+             {
+                 marioVideo.setAttribute('autoplay','true');
+                 marioVideo.load();
+             }
+         }
+         if (marioVideo && videoFullscreen) {
+             videoFullscreen.addEventListener("click", function (evt) {
+                 if (marioVideo.requestFullscreen) {
+                     marioVideo.requestFullscreen();
+                 }
+                 else if (marioVideo.msRequestFullscreen) {
+                     marioVideo.msRequestFullscreen();
+                 }
+                 else if (marioVideo.mozRequestFullScreen) {
+                     marioVideo.mozRequestFullScreen();
+                 }
+                 else if (marioVideo.webkitRequestFullScreen) {
+                     marioVideo.webkitRequestFullScreen();
+                 }
+             }, false);
+         }
+     })();
 
 
-if (document.addEventListener)
-{
- document.addEventListener('fullscreenchange', exitHandler, false);
- document.addEventListener('mozfullscreenchange', exitHandler, false);
- document.addEventListener('MSFullscreenChange', exitHandler, false);
- document.addEventListener('webkitfullscreenchange', exitHandler, false);
-}
+/*
+      var elem = document.getElementById("mario-video");
+      videoFullscreen = document.getElementById("video-fullscreen");
 
-function exitHandler()
-{
- if (document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement !== null)
- {
-   marioVideo.removeAttribute('src');
-   marioVideo.setAttribute('poster','poster.jpg');
-   marioVideo.load();
- }
-}
-if (marioVideo && videoFullscreen) {
-  videoFullscreen.addEventListener("click", function (evt) {
-    if (marioVideo.requestFullscreen) {
-      marioVideo.requestFullscreen();
-    }
-    else if (marioVideo.msRequestFullscreen) {
-      marioVideo.msRequestFullscreen();
-    }
-    else if (marioVideo.mozRequestFullScreen) {
-      marioVideo.mozRequestFullScreen();
-    }
-    else if (marioVideo.webkitRequestFullScreen) {
-      marioVideo.webkitRequestFullScreen();
-                /*
-                    *Kept here for reference: keyboard support in full screen
-                    * marioVideo.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-                    */
-                  }
-                }, false);
-}
-})();
+      function toggleFullScreen() {
+          if (document.exitFullscreen) {
+          console.log('aa');
+          elem.requestFullscreen()
+      }
+          if (!document.fullscreenElement) {
+              elem.autoplay = true;
+              elem.load();
+              elem.requestFullscreen();
+          } else {
+
+          }
+      }
+      function closeFullscreen() {
+          if (document.exitFullscreen) {
+              document.exitFullscreen();
+          } else if (document.mozCancelFullScreen) {
+              document.mozCancelFullScreen();
+          } else if (document.webkitExitFullscreen) {
+              document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) {
+              document.msExitFullscreen();
+          }
+      }
+
+
+*/
 
 </script>

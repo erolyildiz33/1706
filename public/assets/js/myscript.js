@@ -4,7 +4,7 @@ function MyClass() {
     me.il = $('#il');
     me.ilce = $('#ilce');
     me.saha = $('#saha');
-    me.izle=document.getElementById("izle");
+    izle=document.getElementById("izle");
     me.mycontainer = $('.portfolio-container');
     me.test = $('.venobox').venobox();
 
@@ -14,51 +14,44 @@ function MyClass() {
     me.tummaclar;
     me.secilenmaclar=[];
     me.video= document.getElementById('myvideo');
-
     me.videoContainer = document.getElementById('video-container');
     me.ReadySystem = function () {
 
 
-        if (document.addEventListener)
-        {
-            document.addEventListener('fullscreenchange', me.exitHandler, false);
-            document.addEventListener('mozfullscreenchange', me.exitHandler, false);
-            document.addEventListener('MSFullscreenChange', me.exitHandler, false);
-            document.addEventListener('webkitfullscreenchange', me.exitHandler, false);
-        }
 
-         me.exitHandler=function()
-        {
-            if (document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement !== null)
+
+
+
+
+
+
+
+            if (document.addEventListener)
             {
-
-                me.video.removeAttribute('src');
-                me.video.setAttribute('poster','assets/img/portfolio/portfolio-2.jpg');
-                me.video.load();
-
+                document.addEventListener('fullscreenchange', me.exitHandler, false);
+                document.addEventListener('mozfullscreenchange', me.exitHandler, false);
+                document.addEventListener('MSFullscreenChange', me.exitHandler, false);
+                document.addEventListener('webkitfullscreenchange', me.exitHandler, false);
             }
-        }
-        if (me.video && me.izle) {
-           me.izle.addEventListener("click", function (evt) {
-                if (me.video.requestFullscreen) {
-                    me.video.requestFullscreen();
-                     me.test.VBclose();
-                }
-                else if (me.video.msRequestFullscreen) {
-                    me.video.msRequestFullscreen();
-                     me.test.VBclose();
-                }
-                else if (me.video.mozRequestFullScreen) {
-                    me.video.mozRequestFullScreen();
-                     me.test.VBclose();
-                }
-                else if (me.video.webkitRequestFullScreen) {
-                    me.video.webkitRequestFullScreen();
-                     me.test.VBclose();
 
-                }
-            }, false);
-        }
+
+            if (me.video && izle) {
+                izle.addEventListener("click", function (evt) {
+                    if (me.video.requestFullscreen) {
+                        me.video.requestFullscreen();
+                    }
+                    else if (me.video.msRequestFullscreen) {
+                        me.video.msRequestFullscreen();
+                    }
+                    else if (me.video.mozRequestFullScreen) {
+                        me.video.mozRequestFullScreen();
+                    }
+                    else if (me.video.webkitRequestFullScreen) {
+                        me.video.webkitRequestFullScreen();
+                    }
+                }, false);
+            }
+
 
 
 
@@ -101,6 +94,24 @@ function MyClass() {
         });
 
     };
+    me.exitHandler=function()
+    {
+
+        if (!(document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement))
+        {
+            me.video.pause();
+            me.video.removeAttribute('autoplay');
+            me.video.setAttribute('poster','assets/img/portfolio/portfolio-2.jpg');
+            me.video.load();
+
+        }
+        else
+        {
+            me.video.setAttribute('autoplay','true');
+            me.video.load();
+
+        }
+    }
     me.myallowsDate=function(data){
         var mydates=[];
         $.each( data,function(index, element) {
@@ -117,18 +128,16 @@ function MyClass() {
         $.each(me.tummaclar,function (index,element) {
             if(seldate==element.date){
                 item=$('<div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">\n' +
-                    '                        <div class="portfolio-img">' +
-                    '<video id="mario-video"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">'+
-                    '<source src="1.mp4"  id="source" type="video/mp4">'+
-                    '</video>'+
-                    '</div>\n' +
-                    '                        <div class="portfolio-info">\n' +
-                    '                            <h4>'+element.saha+'</h4>\n' +
-                    '                            <p>Kamera '+element.kamerano+'</p>\n' +
-                    '                            <a href="assets/img/portfolio/portfolio-2.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>\n' +
-                    '                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>\n' +
-                    '                        </div>\n' +
-                    '                    </div>');
+                    '<div class="portfolio-img">' +
+                    '<video id="myvideo"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">'+
+                    '<source src="'+element.sahaid+'_'+element.kamerano+'_'+element.date.split("-").join("")+element.time.split(":").join("")+'.mp4'+'"  type="video/mp4">'+
+                    '</video></div>\n' +
+                    '<div class="portfolio-info">\n' +
+                    '<h4>'+element.saha+'</h4>\n' +
+                    '<p>Kamera '+element.kamerano+'</p>\n' +
+                    '<a  data-gall="portfolioGallery" class=" preview-link" title="Web 3"><i class="bx bx-plus"></i></a>\n' +
+                    '<a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>\n' +
+                    '</div></div>');
                 me.mycontainer.isotope({
                     itemSelector: '.portfolio-item',
 

@@ -1,14 +1,9 @@
 @extends('front.app')
 @section('js')
-
 @endsection
-
 @section('content')
-
-
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex align-items-center">
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
@@ -20,29 +15,20 @@
                     </div>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
+                    <img src="{{asset('assets/img/hero-img.png')}}" class="img-fluid animated" alt="">
                 </div>
             </div>
         </div>
-
     </section><!-- End Hero -->
-
     <main id="main">
-
-
-
         <!-- ======= End Find Match Section ======= -->
         <section id="findmatch" class="portfolio">
             <div class="container" data-aos="fade-up">
-
                 <div class="section-title">
                     <h2>Maç Bul</h2>
                 </div>
-
                 <div class="row content">
-
                     <div class="col-3">
-
                         <div class="form-group">
                             <label for="il">İl Seçiniz</label>
                             <div>
@@ -51,15 +37,11 @@
                                     @foreach(\App\sahalar::orderBy('il', 'asc')->distinct('il')->pluck('il') as $v)
                                         <option value="{{strtoupper($v)}}">{{strtoupper($v)}}</option>  <br>
                                     @endforeach
-
-
                                 </select>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-3">
-
                         <div class="form-group">
                             <label for="ilce">İlçe Seçiniz</label>
                             <div>
@@ -68,51 +50,40 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-3">
-
                         <div class="form-group">
                             <label for="saha">Saha Seçiniz</label>
                             <div>
-                                <select id="saha" name="saha" class="custom-select">
-
-                                </select>
+                                <select id="saha" name="saha" class="custom-select"></select>
                             </div>
                         </div>
-
                     </div>
-
-
                 </div>
                 <div class="col-3">
-
                     <div class="form-group">
                         <label for="tarih">Maç Tarihi Seçiniz</label>
                         <div>
                             <input type="text" id="datepicker"  class="custom-select"  required type="text" placeholder="Tarih Seçiniz">
                         </div>
                     </div>
-
                 </div>
                 <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
                     <li data-filter="*" class="filter-active">Tümü</li>
                     <li data-filter=".filter-kamera1">Kamera 1</li>
                     <li data-filter=".filter-kamera2">Kamera 2</li>
-
                 </ul>
-
                 <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" >
                     <div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">
                         <div class="portfolio-img">
                             <video id="myvideo"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
-                                <source src="1.mp4"  id="source" type="video/mp4">
+                                <source src="/outputvideos/1_2_22062020184522.mp4"  id="source" type="video/mp4">
                             </video>
                         </div>
                         <div class="portfolio-info">
                             <h4>Maraton</h4>
                             <p>Kamera 1 / <span> Saat 11:00</span></p>
-                            <a href="/outputvideos/1_2_22062020184522.mp4" id="izle" data-gall="portfolioGallery" class="venobox preview-link" title="İzle"><i class="bx bx-play"></i></a>
+                            <a id="izle" data-gall="portfolioGallery" class="preview-link" title="İzle"><i class="bx bx-play"></i></a>
                             <a href="portfolio-details.html" class="details-link" title="Düzenle"><i class="bx bx-edit"></i></a>
                         </div>
                     </div>
@@ -122,46 +93,34 @@
         <!-- ======= Cliens Section ======= -->
         <section id="cliens" class="cliens section-bg">
             <div class="container">
-
                 <div class="row" data-aos="zoom-in">
-
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
                         <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
                     </div>
-
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
                         <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
                     </div>
-
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
                         <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
                     </div>
-
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
                         <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
                     </div>
-
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
                         <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
                     </div>
-
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
                         <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
                     </div>
-
                 </div>
-
             </div>
         </section><!-- End Cliens Section -->
-
         <!-- ======= About Us Section ======= -->
         <section id="about" class="about">
             <div class="container" data-aos="fade-up">
-
                 <div class="section-title">
                     <h2>About Us</h2>
                 </div>
-
                 <div class="row content">
                     <div class="col-lg-6">
                         <p>
@@ -183,25 +142,19 @@
                         <a href="#" class="btn-learn-more">Learn More</a>
                     </div>
                 </div>
-
             </div>
         </section><!-- End About Us Section -->
-
         <!-- ======= Why Us Section ======= -->
         <section id="why-us" class="why-us section-bg">
             <div class="container-fluid" data-aos="fade-up">
-
                 <div class="row">
-
                     <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
-
                         <div class="content">
                             <h3>Eum ipsam laborum deleniti <strong>velit pariatur architecto aut nihil</strong></h3>
                             <p>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
                             </p>
                         </div>
-
                         <div class="accordion-list">
                             <ul>
                                 <li>
@@ -212,7 +165,6 @@
                                         </p>
                                     </div>
                                 </li>
-
                                 <li>
                                     <a data-toggle="collapse" href="#accordion-list-2" class="collapsed"><span>02</span> Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                                     <div id="accordion-list-2" class="collapse" data-parent=".accordion-list">
@@ -221,7 +173,6 @@
                                         </p>
                                     </div>
                                 </li>
-
                                 <li>
                                     <a data-toggle="collapse" href="#accordion-list-3" class="collapsed"><span>03</span> Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                                     <div id="accordion-list-3" class="collapse" data-parent=".accordion-list">
@@ -230,22 +181,16 @@
                                         </p>
                                     </div>
                                 </li>
-
                             </ul>
                         </div>
-
                     </div>
-
                     <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("assets/img/why-us.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
                 </div>
-
             </div>
         </section><!-- End Why Us Section -->
-
         <!-- ======= Skills Section ======= -->
         <section id="skills" class="skills">
             <div class="container" data-aos="fade-up">
-
                 <div class="row">
                     <div class="col-lg-6 d-flex align-items-center" data-aos="fade-right" data-aos-delay="100">
                         <img src="assets/img/skills.png" class="img-fluid" alt="">
@@ -256,54 +201,43 @@
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
                             magna aliqua.
                         </p>
-
                         <div class="skills-content">
-
                             <div class="progress">
                                 <span class="skill">HTML <i class="val">100%</i></span>
                                 <div class="progress-bar-wrap">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
-
                             <div class="progress">
                                 <span class="skill">CSS <i class="val">90%</i></span>
                                 <div class="progress-bar-wrap">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
-
                             <div class="progress">
                                 <span class="skill">JavaScript <i class="val">75%</i></span>
                                 <div class="progress-bar-wrap">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
-
                             <div class="progress">
                                 <span class="skill">Photoshop <i class="val">55%</i></span>
                                 <div class="progress-bar-wrap">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </section><!-- End Skills Section -->
-
         <!-- ======= Services Section ======= -->
         <section id="services" class="services section-bg">
             <div class="container" data-aos="fade-up">
-
                 <div class="section-title">
                     <h2>Services</h2>
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
                 </div>
-
                 <div class="row">
                     <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                         <div class="icon-box">
@@ -312,7 +246,6 @@
                             <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
                         </div>
                     </div>
-
                     <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-file"></i></div>
@@ -320,7 +253,6 @@
                             <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
                         </div>
                     </div>
-
                     <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="300">
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-tachometer"></i></div>
@@ -328,7 +260,6 @@
                             <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
                         </div>
                     </div>
-
                     <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="400">
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-layer"></i></div>
@@ -336,16 +267,12 @@
                             <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </section><!-- End Services Section -->
-
         <!-- ======= Cta Section ======= -->
         <section id="cta" class="cta">
             <div class="container" data-aos="zoom-in">
-
                 <div class="row">
                     <div class="col-lg-9 text-center text-lg-left">
                         <h3>Call To Action</h3>
@@ -355,23 +282,16 @@
                         <a class="cta-btn align-middle" href="#">Call To Action</a>
                     </div>
                 </div>
-
             </div>
         </section><!-- End Cta Section -->
-
-
-
         <!-- ======= Team Section ======= -->
         <section id="team" class="team section-bg">
             <div class="container" data-aos="fade-up">
-
                 <div class="section-title">
                     <h2>Team</h2>
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
                 </div>
-
                 <div class="row">
-
                     <div class="col-lg-6">
                         <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
                             <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
@@ -388,7 +308,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-6 mt-4 mt-lg-0">
                         <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="200">
                             <div class="pic"><img src="assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
@@ -405,7 +324,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-6 mt-4">
                         <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="300">
                             <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
@@ -422,7 +340,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-6 mt-4">
                         <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="400">
                             <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid" alt=""></div>
@@ -439,23 +356,17 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </section><!-- End Team Section -->
-
         <!-- ======= Pricing Section ======= -->
         <section id="pricing" class="pricing">
             <div class="container" data-aos="fade-up">
-
                 <div class="section-title">
                     <h2>Pricing</h2>
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
                 </div>
-
                 <div class="row">
-
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                         <div class="box">
                             <h3>Free Plan</h3>
@@ -470,7 +381,6 @@
                             <a href="#" class="buy-btn">Get Started</a>
                         </div>
                     </div>
-
                     <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
                         <div class="box featured">
                             <h3>Business Plan</h3>
@@ -485,7 +395,6 @@
                             <a href="#" class="buy-btn">Get Started</a>
                         </div>
                     </div>
-
                     <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
                         <div class="box">
                             <h3>Developer Plan</h3>
@@ -500,21 +409,16 @@
                             <a href="#" class="buy-btn">Get Started</a>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </section><!-- End Pricing Section -->
-
         <!-- ======= Frequently Asked Questions Section ======= -->
         <section id="faq" class="faq section-bg">
             <div class="container" data-aos="fade-up">
-
                 <div class="section-title">
                     <h2>Frequently Asked Questions</h2>
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
                 </div>
-
                 <div class="faq-list">
                     <ul>
                         <li data-aos="fade-up" data-aos-delay="100">
@@ -525,7 +429,6 @@
                                 </p>
                             </div>
                         </li>
-
                         <li data-aos="fade-up" data-aos-delay="200">
                             <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-2" class="collapsed">Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                             <div id="faq-list-2" class="collapse" data-parent=".faq-list">
@@ -534,7 +437,6 @@
                                 </p>
                             </div>
                         </li>
-
                         <li data-aos="fade-up" data-aos-delay="300">
                             <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-3" class="collapsed">Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                             <div id="faq-list-3" class="collapse" data-parent=".faq-list">
@@ -543,7 +445,6 @@
                                 </p>
                             </div>
                         </li>
-
                         <li data-aos="fade-up" data-aos-delay="400">
                             <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-4" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                             <div id="faq-list-4" class="collapse" data-parent=".faq-list">
@@ -552,7 +453,6 @@
                                 </p>
                             </div>
                         </li>
-
                         <li data-aos="fade-up" data-aos-delay="500">
                             <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-5" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                             <div id="faq-list-5" class="collapse" data-parent=".faq-list">
@@ -561,24 +461,18 @@
                                 </p>
                             </div>
                         </li>
-
                     </ul>
                 </div>
-
             </div>
         </section><!-- End Frequently Asked Questions Section -->
-
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="contact">
             <div class="container" data-aos="fade-up">
-
                 <div class="section-title">
                     <h2>Contact</h2>
                     <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
                 </div>
-
                 <div class="row">
-
                     <div class="col-lg-5 d-flex align-items-stretch">
                         <div class="info">
                             <div class="address">
@@ -586,24 +480,19 @@
                                 <h4>Location:</h4>
                                 <p>A108 Adam Street, New York, NY 535022</p>
                             </div>
-
                             <div class="email">
                                 <i class="icofont-envelope"></i>
                                 <h4>Email:</h4>
                                 <p>info@example.com</p>
                             </div>
-
                             <div class="phone">
                                 <i class="icofont-phone"></i>
                                 <h4>Call:</h4>
                                 <p>+1 5589 55488 55s</p>
                             </div>
-
                             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
                         </div>
-
                     </div>
-
                     <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
                         <form action="forms/contact.php" method="post" role="form" class="php-email-form">
                             <div class="form-row">
@@ -636,12 +525,9 @@
                             <div class="text-center"><button type="submit">Send Message</button></div>
                         </form>
                     </div>
-
                 </div>
-
             </div>
         </section><!-- End Contact Section -->
-
     </main><!-- End #main -->
 @endsection
 
