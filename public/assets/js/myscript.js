@@ -127,28 +127,25 @@ function MyClass() {
         }
         $.each(me.tummaclar,function (index,element) {
             if(seldate==element.date){
-                item=$('<div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">\n' +
-                    '<div class="portfolio-img">' +
-                    '<video id="myvideo"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">'+
-                    '<source src="'+element.sahaid+'_'+element.kamerano+'_'+element.date.split("-").join("")+element.time.split(":").join("")+'.mp4'+'"  type="video/mp4">'+
-                    '</video></div>\n' +
-                    '<div class="portfolio-info">\n' +
-                    '<h4>'+element.saha+'</h4>\n' +
-                    '<p>Kamera '+element.kamerano+'</p>\n' +
-                    '<a  data-gall="portfolioGallery" class=" preview-link" title="Web 3"><i class="bx bx-plus"></i></a>\n' +
-                    '<a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>\n' +
-                    '</div></div>');
+                me.mycontainer.isotope('destroy');
+                var $items=$('<div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">\n' +
+                            '<div class="portfolio-img">' +
+                                '<video id="myvideo"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">'+
+                                '<source src="/outputvideos/'+element.sahaid+'_'+element.kamerano+'_'+element.date.split("-").join("")+element.time.split(":").join("")+'.mp4'+'"  type="video/mp4">'+
+                                '</video></div>\n' +
+                            '<div class="portfolio-info">\n' +
+                                '<h4>'+element.saha+'</h4>\n' +
+                                '<p>Kamera '+element.kamerano+' / <span> Saat '+element.time+'</span></p>'+
+                                '<a id="izle-'+element.sahaid+'_'+element.kamerano+'_'+element.date.split("-").join("")+element.time.split(":").join("")+'.mp4'+'" data-gall="portfolioGallery" class="preview-link" title="İzle"><i class="bx bx-play"></i></a>'+
+                                '<a id="detay-'+element.sahaid+'_'+element.kamerano+'_'+element.date.split("-").join("")+element.time.split(":").join("")+'.mp4'+'" class="details-link" title="Düzenle"><i class="bx bx-edit"></i></a>'+
+                            '</div>' +
+                        '</div>');
+                me.mycontainer.append( $items );
                 me.mycontainer.isotope({
                     itemSelector: '.portfolio-item',
-
-                }).append(item.add( ))
-                    .isotope( 'appended', item);
+                });
             }
-
-
-        });
-
-
+        })
     }
     me.ajaxme=function(url,datalar){
         var result;

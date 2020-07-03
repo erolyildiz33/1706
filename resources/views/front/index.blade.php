@@ -74,6 +74,7 @@
                     <li data-filter=".filter-kamera2">Kamera 2</li>
                 </ul>
                 <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" >
+                    <!--
                     <div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">
                         <div class="portfolio-img">
                             <video id="myvideo"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
@@ -87,6 +88,7 @@
                             <a href="portfolio-details.html" class="details-link" title="Düzenle"><i class="bx bx-edit"></i></a>
                         </div>
                     </div>
+                    !-->
                 </div>
             </div>
         </section><!-- End Find Match Section -->
