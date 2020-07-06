@@ -4,11 +4,12 @@ function MyClass() {
     me.il = $('#il');
     me.ilce = $('#ilce');
     me.saha = $('#saha');
-    izle=document.getElementById("izle");
+   // me.video=document.getElementById('myvideo');
     me.mycontainer = $('.portfolio-container');
     me.test = $('.venobox').venobox();
 
     me.mydatepicker=$('#datepicker');
+
     me.get_date;
     me.get_time;
     me.tummaclar;
@@ -16,6 +17,7 @@ function MyClass() {
     me.video= document.getElementById('myvideo');
     me.videoContainer = document.getElementById('video-container');
     me.ReadySystem = function () {
+
 
 
 
@@ -35,22 +37,7 @@ function MyClass() {
             }
 
 
-            if (me.video && izle) {
-                izle.addEventListener("click", function (evt) {
-                    if (me.video.requestFullscreen) {
-                        me.video.requestFullscreen();
-                    }
-                    else if (me.video.msRequestFullscreen) {
-                        me.video.msRequestFullscreen();
-                    }
-                    else if (me.video.mozRequestFullScreen) {
-                        me.video.mozRequestFullScreen();
-                    }
-                    else if (me.video.webkitRequestFullScreen) {
-                        me.video.webkitRequestFullScreen();
-                    }
-                }, false);
-            }
+
 
 
 
@@ -94,24 +81,7 @@ function MyClass() {
         });
 
     };
-    me.exitHandler=function()
-    {
 
-        if (!(document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement))
-        {
-            me.video.pause();
-            me.video.removeAttribute('autoplay');
-            me.video.setAttribute('poster','assets/img/portfolio/portfolio-2.jpg');
-            me.video.load();
-
-        }
-        else
-        {
-            me.video.setAttribute('autoplay','true');
-            me.video.load();
-
-        }
-    }
     me.myallowsDate=function(data){
         var mydates=[];
         $.each( data,function(index, element) {
@@ -127,25 +97,75 @@ function MyClass() {
         }
         $.each(me.tummaclar,function (index,element) {
             if(seldate==element.date){
-                me.mycontainer.isotope('destroy');
+                var dosya =element.sahaid+'_'+element.kamerano+'_'+element.date.split("-").join("")+element.time.split(":").join("");
                 var $items=$('<div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">\n' +
                             '<div class="portfolio-img">' +
-                                '<video id="myvideo"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">'+
-                                '<source src="/outputvideos/'+element.sahaid+'_'+element.kamerano+'_'+element.date.split("-").join("")+element.time.split(":").join("")+'.mp4'+'"  type="video/mp4">'+
-                                '</video></div>\n' +
+                                '<video id="video-'+dosya+'"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="" width="320">\n'+
+                                     '<source src="/outputvideos/'+dosya+'.mp4" type="video/mp4">'+
+                                ' </video>'+
+                            '</div>\n' +
                             '<div class="portfolio-info">\n' +
                                 '<h4>'+element.saha+'</h4>\n' +
                                 '<p>Kamera '+element.kamerano+' / <span> Saat '+element.time+'</span></p>'+
-                                '<a id="izle-'+element.sahaid+'_'+element.kamerano+'_'+element.date.split("-").join("")+element.time.split(":").join("")+'.mp4'+'" data-gall="portfolioGallery" class="preview-link" title="İzle"><i class="bx bx-play"></i></a>'+
-                                '<a id="detay-'+element.sahaid+'_'+element.kamerano+'_'+element.date.split("-").join("")+element.time.split(":").join("")+'.mp4'+'" class="details-link" title="Düzenle"><i class="bx bx-edit"></i></a>'+
+                                '<a id="izle-'+dosya+'" data-gall="portfolioGallery" class="preview-link" title="İzle"><i class="bx bx-play"></i></a>'+
+                                '<a id="detay-'+dosya+'" class="details-link" title="Düzenle"><i class="bx bx-edit"></i></a>'+
                             '</div>' +
                         '</div>');
-                me.mycontainer.append( $items );
+                me.mycontainer.append($items);
                 me.mycontainer.isotope({
                     itemSelector: '.portfolio-item',
                 });
             }
-        })
+        });
+
+
+    }
+    $(window).scroll(function(){
+        me.mycontainer.isotope( 'layout' );
+    });
+    $(document).on('click', '.preview-link', function()
+    {
+
+        var myizle=document.getElementById($(this).attr('id'));
+
+        me.video='video-'+document.getElementById($(this).attr('id').split("-")[1]);
+            if (me.video && myizle) {
+                myizle.addEventListener("click", function (evt) {
+                    if (me.video.requestFullscreen) {
+
+                        me.video.requestFullscreen();
+                    }
+                    else if (me.video.msRequestFullscreen) {
+                        me.video.msRequestFullscreen();
+                    }
+                    else if (me.video.mozRequestFullScreen) {
+                        me.video.mozRequestFullScreen();
+                    }
+                    else if (me.video.webkitRequestFullScreen) {
+                        me.video.webkitRequestFullScreen();
+                    }
+                }, false);
+            }
+
+
+    });
+    me.exitHandler=function()
+    {
+        if (!(document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement))
+        {
+            me.video.pause();
+            me.video.removeAttribute('autoplay');
+            me.video.setAttribute('poster','assets/img/portfolio/portfolio-2.jpg');
+            me.video.load();
+            $('#myvideo').addClass('d-none');
+
+        }
+        else
+        {
+            me.video.setAttribute('autoplay','true');
+            me.video.load();
+            $('#myvideo').removeClass('d-none');
+        }
     }
     me.ajaxme=function(url,datalar){
         var result;

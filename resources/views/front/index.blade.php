@@ -68,11 +68,13 @@
                         </div>
                     </div>
                 </div>
+
                 <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
                     <li data-filter="*" class="filter-active">Tümü</li>
                     <li data-filter=".filter-kamera1">Kamera 1</li>
                     <li data-filter=".filter-kamera2">Kamera 2</li>
                 </ul>
+
                 <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" >
                     <!--
                     <div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">
