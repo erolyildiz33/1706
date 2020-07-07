@@ -4,7 +4,7 @@ namespace App\Http\Controllers\front;
 
 use App\dosyalar;
 use App\Http\Controllers\Controller;
-use App\kameralar;
+
 use App\sahalar;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -16,6 +16,9 @@ class HomeController extends Controller
 
 
         return view("front.index");
+    }
+    function detay(Request $request){
+        return $request->item;
     }
     function ajaxme(Request $request){
 

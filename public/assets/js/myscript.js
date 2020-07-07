@@ -4,49 +4,24 @@ function MyClass() {
     me.il = $('#il');
     me.ilce = $('#ilce');
     me.saha = $('#saha');
-   // me.video=document.getElementById('myvideo');
-    me.mycontainer = $('.portfolio-container');
-    me.test = $('.venobox').venobox();
-
     me.mydatepicker=$('#datepicker');
+
+    me.mycontainer = $('.portfolio-container');
 
     me.get_date;
     me.get_time;
     me.tummaclar;
     me.secilenmaclar=[];
-    me.video= document.getElementById('myvideo');
-    me.videoContainer = document.getElementById('video-container');
+
+
     me.ReadySystem = function () {
-
-
-
-
-
-
-
-
-
-
-
-            if (document.addEventListener)
+        if (document.addEventListener)
             {
                 document.addEventListener('fullscreenchange', me.exitHandler, false);
                 document.addEventListener('mozfullscreenchange', me.exitHandler, false);
                 document.addEventListener('MSFullscreenChange', me.exitHandler, false);
                 document.addEventListener('webkitfullscreenchange', me.exitHandler, false);
             }
-
-
-
-
-
-
-
-
-
-
-
-
         jQuery.datetimepicker.setLocale('tr');
         me.mydatepicker.datetimepicker({
             timepicker:false,
@@ -95,12 +70,13 @@ function MyClass() {
         while (me.secilenmaclar.length > 0) {
             me.secilenmaclar.pop();
         }
+        me.mycontainer.empty();
         $.each(me.tummaclar,function (index,element) {
             if(seldate==element.date){
                 var dosya =element.sahaid+'_'+element.kamerano+'_'+element.date.split("-").join("")+element.time.split(":").join("");
                 var $items=$('<div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">\n' +
                             '<div class="portfolio-img">' +
-                                '<video id="video-'+dosya+'"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="" width="320">\n'+
+                                '<video id="video-'+dosya+'"  width="320" poster="assets/img/portfolio/portfolio-2.jpg" class="img-fluid w-100" alt="" width="320">\n'+
                                      '<source src="/outputvideos/'+dosya+'.mp4" type="video/mp4">'+
                                 ' </video>'+
                             '</div>\n' +
@@ -111,44 +87,32 @@ function MyClass() {
                                 '<a id="detay-'+dosya+'" class="details-link" title="Düzenle"><i class="bx bx-edit"></i></a>'+
                             '</div>' +
                         '</div>');
-                me.mycontainer.append($items);
-                me.mycontainer.isotope({
-                    itemSelector: '.portfolio-item',
-                });
+                me.mycontainer.append( $items ).isotope( 'appended', $items );
             }
         });
+        me.mycontainer.isotope({
+            itemSelector: '.portfolio-item',
 
-
+        });
     }
-    $(window).scroll(function(){
-        me.mycontainer.isotope( 'layout' );
-    });
-    $(document).on('click', '.preview-link', function()
-    {
-
-        var myizle=document.getElementById($(this).attr('id'));
-
-        me.video='video-'+document.getElementById($(this).attr('id').split("-")[1]);
-            if (me.video && myizle) {
-                myizle.addEventListener("click", function (evt) {
-                    if (me.video.requestFullscreen) {
-
-                        me.video.requestFullscreen();
-                    }
-                    else if (me.video.msRequestFullscreen) {
-                        me.video.msRequestFullscreen();
-                    }
-                    else if (me.video.mozRequestFullScreen) {
-                        me.video.mozRequestFullScreen();
-                    }
-                    else if (me.video.webkitRequestFullScreen) {
-                        me.video.webkitRequestFullScreen();
-                    }
-                }, false);
+    $(document).on('click', '.preview-link', function() {
+        item="video-"+$(this).attr('id').split("-")[1];
+        me.video=document.getElementById(item);
+        if (me.video.requestFullscreen) {
+            me.video.requestFullscreen();
+            } else if (me.video.msRequestFullscreen) {
+                me.video.msRequestFullscreen();
+            } else if (me.video.mozRequestFullScreen) {
+                me.video.mozRequestFullScreen();
+            } else if (me.video.webkitRequestFullScreen) {
+                me.video.webkitRequestFullScreen();
             }
-
+        });
+    $(document).on('click', '.details-link', function() {
+        $.redirect('/edit-video', { _token: $('meta[name="csrf-token"]').attr('content'),'item': 'detay-'+$(this).attr('id').split('-')[1]},  "POST" ,  "_blank");
 
     });
+
     me.exitHandler=function()
     {
         if (!(document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement))

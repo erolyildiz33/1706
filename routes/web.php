@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\front\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +17,7 @@ Route::get('/','front\HomeController@index')->name('home');
 Route::get('/admin','back\HomeController@index')->name('admin');
 Route::get('/cronjob','back\HomeController@cronjob')->name('cronjob');
 Route::post('/ajaxme','front\HomeController@ajaxme');
+Route::post('/edit-video','front\HomeController@detay');
 
 
 

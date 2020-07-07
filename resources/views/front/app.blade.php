@@ -163,11 +163,7 @@
 
 <!-- Template Main JS File -->
 <script src="{{asset('assets/js/main.js')}}"></script>
-<script src="{{asset('assets/js/select2.min.js')}}"></script>
-<script src="{{asset('assets/js/select2_tr.js')}}"></script>
-<script src="{{asset('assets/js/jquery.datetimepicker.full.min.js')}}"></script>
 
-<script src="{{asset('assets/js/myscript.js')}}"></script>
 @yield('js')
 
 </body>

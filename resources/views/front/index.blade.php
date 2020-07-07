@@ -1,7 +1,13 @@
 @extends('front.app')
 @section('js')
+    <script src="{{asset('assets/js/select2.min.js')}}"></script>
+    <script src="{{asset('assets/js/select2_tr.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.datetimepicker.full.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.redirect.js')}}"></script>
+    <script src="{{asset('assets/js/myscript.js')}}"></script>
 @endsection
 @section('content')
+
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex align-items-center">
         <div class="container">
@@ -62,9 +68,9 @@
                 </div>
                 <div class="col-3">
                     <div class="form-group">
-                        <label for="tarih">Maç Tarihi Seçiniz</label>
+                        <label for="datepicker">Maç Tarihi Seçiniz</label>
                         <div>
-                            <input type="text" id="datepicker"  class="custom-select"  required type="text" placeholder="Tarih Seçiniz">
+                            <input type="text" id="datepicker"  class="custom-select"  required  placeholder="Tarih Seçiniz">
                         </div>
                     </div>
                 </div>
@@ -75,7 +81,7 @@
                     <li data-filter=".filter-kamera2">Kamera 2</li>
                 </ul>
 
-                <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200" >
+                <div class="row portfolio-container mb-5" data-aos="fade-up" data-aos-delay="200" >
                     <!--
                     <div class="col-lg-4 col-md-6 portfolio-item filter-kamera'+ element.kamerano+'">
                         <div class="portfolio-img">
@@ -99,22 +105,22 @@
             <div class="container">
                 <div class="row" data-aos="zoom-in">
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
+                        <img src="/assets/img/clients/client-1.png" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
+                        <img src="/assets/img/clients/client-2.png" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
+                        <img src="/assets/img/clients/client-3.png" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
+                        <img src="/assets/img/clients/client-4.png" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
+                        <img src="/assets/img/clients/client-5.png" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
+                        <img src="/assets/img/clients/client-6.png" class="img-fluid" alt="">
                     </div>
                 </div>
             </div>
