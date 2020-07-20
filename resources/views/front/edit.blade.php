@@ -1,49 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<?php
+
+
+
+?>
+    <!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Editor</title>
-    <script
-        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-        crossorigin="anonymous">
-    </script>
-    <script src="{{asset('assets/edit/js/nouislider.min.js')}}"></script>
-    <link rel="stylesheet" href="{{asset('assets/edit/css/style.css')}}">
-    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/dot-luv/jquery-ui.css">
-    <link rel="stylesheet" href="{{asset('assets/edit/css/nouislider.min.css')}}">
+    <title>Video Düzenleme</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/hot-sneaks/jquery-ui.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
+<div class="container-fluid">
+    <div class="col-md-6">
+        <div id="video_player_box">
 
-<div id="resizable" class="ui-widget-content">
-    <video class="video" controls>
-        <source src="{{'/outputvideos/'.$item}}">
-    </video>
-    <canvas id="canv"></canvas>
-</div>
+                <video id="my_video" controls style="width: 100%">
+                    <source src="{{'/outputvideos/'.$item}}">
+                </video>
+
+            <div id="video_controls_bar">
 
 
-<div class="hide_until_load hidden">
-    <span class="current_time"></span>
-    <div class="slider_wrapper">
-        <div id="slider"></div>
-        <div class="slider_time_pos"></div>
+
+                <div class="slider-wrapper slider-danger slider-strips slider-ghost " >
+                    <div id="slider" class="input-range"  data-slider-step="1" data-values="[0, 100]" data-min="0" data-max="100" data-range="true" data-slider-tooltip="hide"></div>
+                </div>
+            </div><div><span id="starttime"></span> / <time id="endtime"></time></div>
+            <div id="cutvideo" class="btn btn-primary btn-sm fa fa-cut"></div>
+        </div>
     </div>
-    Başlangıç Zamanı: <input type="number" class="slider_control" data-pos="0" value="0" title="Start" />
-    Bitiş Zamanı: <input type="number" class="slider_control" data-pos="1" value="1" title="End" />
+    <div id="prev" class="col-md-6 " style="display: none">
+        <video id="izlevideo" controls style="width: 100%">
 
-
-
-    <input type="button" id="run_ffmpeg" value="Videoyu Kes!"/>
-
-
-
-    <div class="Kesilen_video">
+        </video>
 
     </div>
 </div>
+</div>
 
-<script src="{{asset('assets/edit/js/control.js')}}"></script>
-<script src="{{asset('assets/edit/js/ffmpeg/ffmpeg_runner.js')}}"></script>
+<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+<script src="https://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="{{asset('assets/js/mainvideo.js')}}"></script>
 </body>
 </html>

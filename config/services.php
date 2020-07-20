@@ -29,5 +29,11 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),         // Your Facebook App Client ID
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'), // Your Facebook App Client Secret
+        'redirect' => env('FACEBOOK_REDIRECT'), // Your application route used to redirect users back to your app after authentication
+        'default_graph_version' => 'v5.7',
+    ],
 
 ];

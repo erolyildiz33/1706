@@ -84,7 +84,7 @@ function MyClass() {
                                 '<h4>'+element.saha+'</h4>\n' +
                                 '<p>Kamera '+element.kamerano+' / <span> Saat '+element.time+'</span></p>'+
                                 '<a id="izle-'+dosya+'" data-gall="portfolioGallery" class="preview-link" title="İzle"><i class="bx bx-play"></i></a>'+
-                                '<a id="detay-'+dosya+'" class="details-link" title="Düzenle"><i class="bx bx-edit"></i></a>'+
+                                '<a id="'+dosya+'.mp4" class="details-link" title="Düzenle"><i class="bx bx-edit"></i></a>'+
                             '</div>' +
                         '</div>');
                 me.mycontainer.append( $items ).isotope( 'appended', $items );
@@ -109,7 +109,8 @@ function MyClass() {
             }
         });
     $(document).on('click', '.details-link', function() {
-        $.redirect('/edit-video', { _token: $('meta[name="csrf-token"]').attr('content'),'item': 'detay-'+$(this).attr('id').split('-')[1]},  "POST" ,  "_blank");
+
+        $.redirect('/edit-video', { _token: $('meta[name="csrf-token"]').attr('content'),'item': $(this).attr('id')},  "POST" ,  "_blank");
 
     });
 

@@ -18,7 +18,37 @@ class HomeController extends Controller
         return view("front.index");
     }
     function detay(Request $request){
-        return $request->item;
+
+
+        return view("front.edit",['item'=>'1_2_220620201845.mp4']);
+        //return $request->item;
+
+    }
+    function cutit(Request $request){
+
+            $length=$request->length;
+            $starttime=$request->starttime;
+            $video_file=public_path().$request->video_file;
+            $output_dir = public_path()."\output";
+            $cutter=public_path().'\bin\ffmpeg.exe';
+
+            $date = date("Y-m-d H:i:s");
+
+            $uploadtime = strtotime($date);
+            $filename = pathinfo($video_file, PATHINFO_FILENAME);
+            $ext=pathinfo($video_file, PATHINFO_EXTENSION);
+            $output = $output_dir.DIRECTORY_SEPARATOR.$uploadtime.'_'.$filename.".".$ext;
+            //print_r("$cutter -t $length -ss $starttime -i $video_file -b:v 2048k");
+            $process = exec("$cutter -t $length -ss $starttime -i $video_file -b:v 2048k $output 2>&1", $result);
+           if($process){
+               echo $uploadtime.'_'.$filename.".".$ext;
+           };
+
+
+    }
+    function fb(Request $request)
+    {
+        return $request->all();
     }
     function ajaxme(Request $request){
 
